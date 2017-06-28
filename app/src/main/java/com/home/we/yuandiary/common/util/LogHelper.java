@@ -5,4 +5,6 @@ package com.home.we.yuandiary.common.util;
  */
 
 public class LogHelper {
+
+    //test
 }
