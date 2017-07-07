@@ -13,6 +13,7 @@ import com.home.we.yuandiary.R;
 import com.home.we.yuandiary.common.util.BottomNavigationViewHelper;
 import com.home.we.yuandiary.ui.base.adapter.base.BaseFragment;
 import com.home.we.yuandiary.ui.base.adapter.base.ViewPagerAdapter;
+import com.home.we.yuandiary.ui.fragment.MineFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,10 +84,12 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(BaseFragment.newInstance("新闻"));
-        adapter.addFragment(BaseFragment.newInstance("图书"));
-        adapter.addFragment(BaseFragment.newInstance("发现"));
-        adapter.addFragment(BaseFragment.newInstance("更多"));
+        adapter.addFragment(BaseFragment.newInstance("首页"));
+        adapter.addFragment(BaseFragment.newInstance("消息"));
+        adapter.addFragment(BaseFragment.newInstance("问答"));
+        adapter.addFragment(MineFragment.newInstance("我的"));
         viewPager.setAdapter(adapter);
     }
+
+    //
 }
