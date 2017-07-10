@@ -6,4 +6,8 @@
 
     <color name="tab_checked">#3F51B5</color>
     <color name="tab_unchecked">#757575</color>
+    <color name="common_header">#1C89E6</color>
+    <color name="common_header_tvColor">#F8FBF5</color>
+    <color name="mine_line_color">#d9dada</color>
+
 </resources>
