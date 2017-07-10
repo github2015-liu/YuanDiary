@@ -1,13 +1,345 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+    <include
+        android:id="@+id/in_mine"
+        layout="@layout/common_header"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"></include>
 
-</RelativeLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@color/mine_line_color" />
+
+
+    //个人资料布局
+
+    <LinearLayout
+        android:id="@+id/ll_person_info"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="horizontal">
+
+        <com.home.we.yuandiary.ui.view.RoundImageView
+            android:id="@+id/iv_mine_user_pic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:background="@color/colorAccent" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_alignLeft="@id/iv_mine_user_pic"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="5"
+
+            >
+
+            <TextView
+                android:id="@+id/tv_mine_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="唐钰小宝"
+                android:textSize="22dp"
+                android:textStyle="bold"
+
+                />
+
+            <TextView
+
+                android:id="@+id/tv_mine_user_work"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_mine_user_name"
+                android:layout_marginTop="5dp"
+                android:text="php"
+                android:textSize="15dp"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_mine_user_work_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_mine_user_name"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/tv_mine_user_work"
+                android:text="6年"
+                android:textSize="15dp"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_mine_user_work_loc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_mine_user_name"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/tv_mine_user_work_age"
+                android:text="北京六间房科技有限公司"
+                android:textSize="15dp"
+
+                />
+
+
+            <ImageView
+                android:id="@+id/iv_mine_user_work_loc"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_below="@id/tv_mine_user_work"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="6dp"
+                android:src="@mipmap/ic_launcher"
+
+                android:textSize="15dp"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_mine_user_work_loc_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_mine_user_work"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/iv_mine_user_work_loc"
+                android:text="北京"
+                android:textSize="10dp"
+
+                />
+
+
+            <TextView
+                android:id="@+id/tv_mine_user_marriage_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_mine_user_work"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/tv_mine_user_work_loc_city"
+                android:text="单身"
+                android:textSize="10dp"
+
+                />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/mine_line_color"/>
+
+
+    //我的动态和八卦
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+
+        <ImageView
+            android:id="@+id/iv_mine_trend"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/ic_launcher" />
+        
+        <TextView
+            android:id="@+id/tv_mine_trend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_mine_trend"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="我的动态、八卦"
+            android:textStyle="bold"
+
+            >
+
+        </TextView>
+
+    </RelativeLayout>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/mine_line_color"/>
+
+
+    //附近的人
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+
+        <ImageView
+            android:id="@+id/iv_mine_near_people"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_mine_near_people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_mine_near_people"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="附近的人"
+            android:textStyle="bold"
+            >
+
+        </TextView>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/mine_line_color"/>
+
+
+    //成为认证用户
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+
+        <ImageView
+            android:id="@+id/iv_mine_authenticate_user"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_mine_authenticate_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/iv_mine_authenticate_user"
+            android:text="成为认证用户"
+            android:textStyle="bold"
+            />
+
+
+
+        <TextView
+            android:id="@+id/tv_mine_authenticate_user_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentRight="true"
+            android:text="已认证"
+            android:layout_marginRight="20dp"
+            >
+
+        </TextView>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/mine_line_color"/>
+
+
+
+    //收藏
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+
+        <ImageView
+            android:id="@+id/iv_mine_collect"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_mine_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/iv_mine_collect"
+            android:text="收藏"
+            android:textStyle="bold"
+            >
+
+        </TextView>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/mine_line_color"/>
+
+
+    //设置
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+
+        <ImageView
+            android:id="@+id/iv_mine_setting"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_mine_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/iv_mine_setting"
+            android:text="设置"
+            android:textStyle="bold"
+            />
+
+    </RelativeLayout>
+
+
+
+
+
+</LinearLayout>
