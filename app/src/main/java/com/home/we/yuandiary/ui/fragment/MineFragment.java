@@ -17,6 +17,7 @@ import com.home.we.yuandiary.R;
  */
 
 public class MineFragment extends Fragment {
+    private TextView tv_common_header;
 
     public static MineFragment newInstance(String info) {
         Bundle args = new Bundle();
@@ -26,19 +27,30 @@ public class MineFragment extends Fragment {
         return fragment;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mine, null);
-        TextView tvInfo = (TextView) view.findViewById(R.id.textView);
-        tvInfo.setText(getArguments().getString("info"));
-        tvInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.make(v, "Don't click me.please!.", Snackbar.LENGTH_SHORT).show();
-            }
-        });
-        return view;
+
+
+        //文字设置失效
+        View view_common_header = inflater.inflate(R.layout.common_header, null);
+        TextView tv_common_header = (TextView) view_common_header.findViewById(R.id.tv_common_header);
+        tv_common_header.setText("我的");
+        //设置头部
+        View view_fragment_mine = inflater.inflate(R.layout.fragment_mine, null);
+
+        //设置头部文字
+
+
+        return view_fragment_mine;
     }
 
 }
