@@ -26,13 +26,13 @@
         android:layout_height="120dp"
         android:orientation="horizontal">
 
-        <com.home.we.yuandiary.ui.view.RoundImageView
+        <ImageView
             android:id="@+id/iv_mine_user_pic"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginLeft="30dp"
-            android:background="@color/colorAccent" />
+            android:src="@mipmap/ic_launcher" />
 
         <RelativeLayout
             android:layout_width="match_parent"
