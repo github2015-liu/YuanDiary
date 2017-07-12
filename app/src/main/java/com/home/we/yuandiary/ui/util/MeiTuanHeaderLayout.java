@@ -35,7 +35,7 @@ public class MeiTuanHeaderLayout extends LoadingLayoutBase{
         mBabyImage = (ImageView) mInnerLayout.findViewById(R.id.pull_to_refresh_baby);
 
         FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mInnerLayout.getLayoutParams();
-        lp.gravity = Gravity.BOTTOM;
+        lp.gravity = Gravity.TOP;
 
         reset();
     }
