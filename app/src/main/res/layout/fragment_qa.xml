@@ -46,6 +46,18 @@
         android:layout_below="@id/rl_qa_header"
         >
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:text="假装有内容"/>
+        </RelativeLayout>
 
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 
