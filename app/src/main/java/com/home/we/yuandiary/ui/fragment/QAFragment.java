@@ -58,7 +58,7 @@ public class QAFragment extends Fragment {
 
 
         mPullToRefreshScrollView = (PullToRefreshScrollView) view.findViewById(R.id.main_act_scrollview);
-        mPullToRefreshScrollView.setHeaderLayout(new MeiTuanHeaderLayout(getContext()));
+        mPullToRefreshScrollView.setHeaderLayout(new MeiTuanHeaderLayout(getActivity()));
         initEvents();
 
 
