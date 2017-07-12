@@ -38,11 +38,15 @@ public class MeiTuanHeaderLayout extends LoadingLayoutBase{
         lp.gravity = Gravity.BOTTOM;
 
         reset();
+
+        Log.d("ljk","MeiTuanHeaderLayout over");
+
     }
 
     // 获取"加载头部"高度
     @Override
     public int getContentSize() {
+        Log.d("ljk","获取加载头部高度");
 
         return mInnerLayout.getHeight();
     }
@@ -57,6 +61,9 @@ public class MeiTuanHeaderLayout extends LoadingLayoutBase{
     // "加载头部"完全显示时的回调
     @Override
     public void releaseToRefresh() {
+
+        Log.d("ljk","加载头部完全显示时回调");
+
         mBabyImage.setImageResource(R.drawable.pull_to_refresh_second_anim);
         if (animBabyShow == null) {
             animBabyShow = (AnimationDrawable) mBabyImage.getDrawable();
@@ -84,6 +91,9 @@ public class MeiTuanHeaderLayout extends LoadingLayoutBase{
     // 释放后刷新时的回调
     @Override
     public void refreshing() {
+
+        Log.d("ljk","refreshing");
+
         if(null != animBabyShow) {
             animBabyShow.stop();
         }
@@ -96,6 +106,9 @@ public class MeiTuanHeaderLayout extends LoadingLayoutBase{
 
     @Override
     public void reset() {
+
+        Log.d("ljk","reset");
+
         if(animBabyShow != null) {
             animBabyShow.stop();
             animBabyShow = null;
@@ -108,16 +121,21 @@ public class MeiTuanHeaderLayout extends LoadingLayoutBase{
 
     @Override
     public void setPullLabel(CharSequence pullLabel) {
+        Log.d("ljk","setPullLabel");
+
 
     }
 
     @Override
     public void setRefreshingLabel(CharSequence refreshingLabel) {
+        Log.d("ljk","setRefreshingLabel");
+
 
     }
 
     @Override
     public void setReleaseLabel(CharSequence releaseLabel) {
+        Log.d("ljk","setReleaseLabel");
 
     }
 }
