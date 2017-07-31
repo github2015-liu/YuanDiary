@@ -3,6 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorLable">#c4c4c4</color>
+    <color name="colorQperson">#a4a4a4</color>
+
+
 
     <color name="tab_checked">#3F51B5</color>
     <color name="tab_unchecked">#757575</color>
@@ -11,6 +15,20 @@
     <color name="mine_line_color">#d9dada</color>
     <color name="home_konw_more">#adaeae</color>
     <color name="home_know_more_bg">#f4f7f7</color>
+
+    <color name="welcome_regist_color">#4696ff</color>
+    <color name="welcome_regist_finish_color">#cccbcb</color>
+    <color name="welcome_regist_bg">#fffefe</color>
+    <color name="welcome_regist_text_color">#0d0d0d</color>
+
+
+
+
+
+
+
+    <color name="qa_line">#dadada</color>
+
 
 
 

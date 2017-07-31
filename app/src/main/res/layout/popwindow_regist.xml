@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/welcome_regist_bg"
+    >
+
+    <TextView
+        android:id="@+id/tv_welcome_regist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="注册"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/tv_welcome_phoneNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_welcome_regist"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="20dp"
+        android:text="手机号"
+        android:textColor="@color/welcome_regist_color"
+        android:textSize="12dp" />
+
+    <EditText
+        android:id="@+id/et_welcome_phoneNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_welcome_phoneNum"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textCursorDrawable="@color/welcome_regist_color"
+        android:textColor="@color/welcome_regist_text_color"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_welcome_pwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_welcome_phoneNum"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="20dp"
+
+        android:text="密码"
+        android:textColor="@color/welcome_regist_color"
+        android:textSize="12dp" />
+
+    <EditText
+        android:id="@+id/et_welcome_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_welcome_pwd"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textCursorDrawable="@color/welcome_regist_color"
+        android:textColor="@color/welcome_regist_text_color"
+        />
+
+    <TextView
+        android:id="@+id/tv_welcome_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_welcome_pwd"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="20dp"
+        android:text="昵称"
+        android:textColor="@color/welcome_regist_color"
+        android:textSize="12dp" />
+
+    <EditText
+        android:id="@+id/et_welcome_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_welcome_name"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textCursorDrawable="@color/welcome_regist_color"
+        android:textColor="@color/welcome_regist_text_color"
+        />
+
+    <Button
+        android:id="@+id/btn_welcome_regist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_welcome_name"
+        android:background="@null"
+        android:text="完成注册"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/welcome_regist_finish_color"
+        />
+
+
+</RelativeLayout>
