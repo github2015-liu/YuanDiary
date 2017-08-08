@@ -34,6 +34,7 @@
         android:layout_below="@+id/tv_welcome_phoneNum"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:phoneNumber="true"
         android:textCursorDrawable="@color/welcome_regist_color"
         android:textColor="@color/welcome_regist_text_color"
         />
@@ -59,6 +60,7 @@
         android:layout_below="@id/tv_welcome_pwd"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:password="true"
         android:textCursorDrawable="@color/welcome_regist_color"
         android:textColor="@color/welcome_regist_text_color"
         />
@@ -87,13 +89,14 @@
         />
 
     <Button
-        android:id="@+id/btn_welcome_regist"
+        android:id="@+id/btn_welcome_finish_regist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/et_welcome_name"
         android:background="@null"
         android:text="完成注册"
         android:layout_alignParentRight="true"
+        android:enabled="false"
         android:textColor="@color/welcome_regist_finish_color"
         />
 
