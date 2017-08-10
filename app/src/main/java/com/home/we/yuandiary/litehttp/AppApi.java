@@ -73,21 +73,21 @@ public class AppApi {
      * @param name
      * @param listener
      */
-    public static void postForRegist(Context context, String name, HttpListener<String> listener) {
+    public static void postForRegist(Context context, String name, HttpListener<String> listener, LinkedList<NameValuePair> pList) {
         MultipartBody body = new MultipartBody();
        /* body.addPart(new StringPart("alias", "小宝"));
         body.addPart(new StringPart("username", "18201090103"));
         body.addPart(new StringPart("password", "123456"));
         body.addPart(new StringPart("topassword", "123456"));*/
 
-        LinkedList<NameValuePair> pList = new LinkedList<NameValuePair>();
-        pList.add(new NameValuePair("alias", "小宝"));
-        pList.add(new NameValuePair("username", "18201090103"));
-        pList.add(new NameValuePair("password", "123456"));
-        pList.add(new NameValuePair("topassword", "123456"));
+        pList = new LinkedList<NameValuePair>();
+        for (int i = 0; i < pList.size(); i++) {
+            String name1 = pList.get(i).getName();
+            String value1 = pList.get(i).getValue();
+            NameValuePair pair = new NameValuePair(name1,value1);
+            pList.add(pair);
 
-
-
+        }
         AppContext.getHttp(context).executeAsync(new StringRequest(REGIST_URL)
                 .setMethod(HttpMethods.Post)
                 //.addUrlParam("","")在url 后面追加参数
