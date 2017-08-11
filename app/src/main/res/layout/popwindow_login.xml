@@ -8,19 +8,19 @@
 
 
     <TextView
-        android:id="@+id/tv_welcome_regist"
+        android:id="@+id/tv_welcome_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:text="注册"
+        android:text="登录"
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/tv_welcome_phoneNum"
+        android:id="@+id/tv_welcome_login_phoneNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_welcome_regist"
+        android:layout_below="@id/tv_welcome_login"
         android:layout_marginTop="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginLeft="20dp"
@@ -29,10 +29,10 @@
         android:textSize="12dp" />
 
     <EditText
-        android:id="@+id/et_welcome_phoneNum"
+        android:id="@+id/et_login_phoneNum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_welcome_phoneNum"
+        android:layout_below="@+id/tv_welcome_login_phoneNum"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:phoneNumber="true"
@@ -42,10 +42,10 @@
 
 
     <TextView
-        android:id="@+id/tv_welcome_pwd"
+        android:id="@+id/tv_login_pwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/et_welcome_phoneNum"
+        android:layout_below="@id/et_login_phoneNum"
         android:layout_marginTop="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginLeft="20dp"
@@ -55,10 +55,10 @@
         android:textSize="12dp" />
 
     <EditText
-        android:id="@+id/et_welcome_pwd"
+        android:id="@+id/et_login_pwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_welcome_pwd"
+        android:layout_below="@id/tv_login_pwd"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:password="true"
@@ -66,53 +66,33 @@
         android:textColor="@color/welcome_regist_text_color"
         />
 
-    <TextView
-        android:id="@+id/tv_welcome_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/et_welcome_pwd"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="20dp"
-        android:text="昵称"
-        android:textColor="@color/welcome_regist_color"
-        android:textSize="12dp" />
 
-    <EditText
-        android:id="@+id/et_welcome_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_welcome_name"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:textCursorDrawable="@color/welcome_regist_color"
-        android:textColor="@color/welcome_regist_text_color"
-        />
 
     <Button
-        android:id="@+id/btn_welcome_finish_regist"
+        android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:layout_marginRight="10dp"
-        android:text="完成注册"
+        android:layout_marginRight="5dp"
+        android:text="登录"
         android:layout_alignParentRight="true"
-        android:enabled="false"
         android:textColor="@color/welcome_regist_finish_color"
-        android:layout_below="@+id/et_welcome_name" />
+        android:layout_below="@+id/et_login_pwd" />
 
 
-    <TextView
-        android:id="@+id/tv_welcome_server_fedback"
+    <Button
+        android:id="@+id/btn_thrid_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:layout_marginLeft="10dp"
-        android:visibility="invisible"
+        android:text="第三方登录"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/btn_welcome_finish_regist"
+        android:layout_marginLeft="10dp"
         android:textColor="@color/welcome_regist_finish_color"
-        />
+        android:layout_below="@+id/et_login_pwd" />
+
+
+
 
 
 </RelativeLayout>

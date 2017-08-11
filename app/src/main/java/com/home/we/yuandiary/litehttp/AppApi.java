@@ -2,9 +2,12 @@ package com.home.we.yuandiary.litehttp;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.sip.SipAudioCall;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.home.we.yuandiary.bean.LoginFedBack;
+import com.home.we.yuandiary.bean.RegistData;
 import com.home.we.yuandiary.model.Phone;
 import com.home.we.yuandiary.model.QuestionAndAnswer;
 import com.litesuits.http.annotation.HttpCacheExpire;
@@ -15,6 +18,7 @@ import com.litesuits.http.annotation.HttpUri;
 import com.litesuits.http.data.NameValuePair;
 import com.litesuits.http.listener.HttpListener;
 import com.litesuits.http.request.BitmapRequest;
+import com.litesuits.http.request.JsonAbsRequest;
 import com.litesuits.http.request.StringRequest;
 import com.litesuits.http.request.content.HttpBody;
 import com.litesuits.http.request.content.StringBody;
@@ -24,6 +28,7 @@ import com.litesuits.http.request.content.multi.StringPart;
 import com.litesuits.http.request.param.CacheMode;
 import com.litesuits.http.request.param.HttpMethods;
 import com.litesuits.http.request.param.HttpRichParamModel;
+import com.litesuits.http.response.Response;
 
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
@@ -55,7 +60,7 @@ public class AppApi {
      * 具体看文档把。
      */
     @HttpUri("http://114.215.238.246/api?padapi=questask-asklist.php")
-    @HttpMethod(HttpMethods.Get)
+    @HttpMethod(HttpMethods.Post)
     @HttpID(1)
     @HttpCacheMode(CacheMode.CacheFirst)
     @HttpCacheExpire(value = 1, unit = TimeUnit.MINUTES)
@@ -67,13 +72,34 @@ public class AppApi {
         }
     }
 
+
+
+    /**
+     *
+     * 获取登录返回数据
+     */
+    @HttpUri("http://114.215.238.246/api?padapi=login-login.php")
+    @HttpMethod(HttpMethods.Post)
+    @HttpID(1)
+    @HttpCacheMode(CacheMode.CacheFirst)
+    @HttpCacheExpire(value = 1, unit = TimeUnit.MINUTES)
+    public static class  LoginParam extends HttpRichParamModel<LoginFedBack> {
+        private String username;
+        private String password;
+
+        public LoginParam(String username, String password) {
+            this.username = username;
+            this.password = password;
+        }
+    }
+
     /**
      * 演示
      *
      * @param name
      * @param listener
      */
-    public static void postForRegist(Context context, String name, HttpListener<String> listener, LinkedList<NameValuePair> pList) {
+    public static void postForRegist(Context context, String name, HttpListener<RegistData> listener, LinkedList<NameValuePair> pList) {
         MultipartBody body = new MultipartBody();
        /* body.addPart(new StringPart("alias", "小宝"));
         body.addPart(new StringPart("username", "18201090103"));
@@ -88,13 +114,25 @@ public class AppApi {
             pList.add(pair);
 
         }
-        AppContext.getHttp(context).executeAsync(new StringRequest(REGIST_URL)
+
+        AppContext.getHttp(context).executeAsync(new JsonAbsRequest<RegistData>(REGIST_URL){
+
+
+        }
+                        .setMethod(HttpMethods.Post)
+                        .setHttpBody(new UrlEncodedFormBody(pList))
+                        .addHeader(AppContext.addHttpHeader())
+                        .setHttpListener(listener)
+
+        );
+
+       /* AppContext.getHttp(context).executeAsync(new StringRequest(REGIST_URL)
                 .setMethod(HttpMethods.Post)
                 //.addUrlParam("","")在url 后面追加参数
 
                 .setHttpBody(new UrlEncodedFormBody(pList))
                 .addHeader(AppContext.addHttpHeader())
-                .setHttpListener(listener));
+                .setHttpListener(listener));*/
 
     }
 
