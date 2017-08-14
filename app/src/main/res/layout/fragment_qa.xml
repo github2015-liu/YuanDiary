@@ -4,147 +4,30 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/rl_qa_header"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:orientation="horizontal"
-        android:background="@color/colorPrimary"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-        <TextView
-            android:id="@+id/tv_qa_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:textColor="@color/common_header_tvColor"
-            android:text="问答"
-            android:textSize="20dp"
-            />
-
-        <ImageView
-            android:id="@+id/tv_qa_header_pubbish"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:textColor="@color/common_header_tvColor"
-            android:src="@mipmap/ic_launcher"
-            android:textSize="20dp"
-            />
-
-    </RelativeLayout>
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
-        android:id="@+id/main_act_scrollview"
+        android:id="@+id/qa_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/rl_qa_header"
         >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/lv_qa"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </ListView>
+
+        </LinearLayout>
+
 
 
 
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
-
-    <RelativeLayout
-        android:id="@+id/rl_qa_item"
-        android:layout_below="@id/rl_qa_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-
-        <TextView
-            android:id="@+id/tv_qa_qname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
-
-            android:text="java 端如何接收服务器发给特定url的“通知” js on参数，并向服务器返回“通知响应参数”"
-            android:textSize="18dp"
-            />
-
-        <TextView
-            android:id="@+id/tv_qa_lable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_qa_qname"
-            android:text="url 硬件 java"
-            android:layout_marginLeft="10dp"
-            android:textSize="10dp"
-            android:textColor="@color/colorLable"
-            />
-
-        <ImageView
-            android:id="@+id/iv_q_person_head"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:layout_below="@id/tv_qa_lable"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:src="@mipmap/ic_launcher"
-            />
-
-
-        <TextView
-            android:id="@+id/tv_q_person"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_qa_lable"
-            android:layout_toRightOf="@id/iv_q_person_head"
-            android:text="会飞的猪@"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:textSize="10dp"
-            android:textColor="@color/colorQperson"
-            />
-
-        <TextView
-            android:id="@+id/tv_q_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_qa_lable"
-            android:layout_toRightOf="@id/tv_q_person"
-            android:text="提问于 今天 下午 7:08"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:textSize="10dp"
-            android:textColor="@color/colorLable"
-            />
-
-        <TextView
-            android:id="@+id/tv_a_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_qa_lable"
-            android:layout_alignParentRight="true"
-            android:text="回答1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"
-            android:textSize="10dp"
-            android:textColor="@color/colorLable"
-            />
-
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/tv_qa_line1"
-        android:background="@color/qa_line"
-        android:layout_width="match_parent"
-        android:layout_below="@id/rl_qa_item"
-        android:layout_height="2dp" />
 
 
 
