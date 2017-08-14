@@ -92,6 +92,15 @@
         android:layout_below="@+id/et_login_pwd" />
 
 
+    <TextView
+        android:id="@+id/tv_loginBackInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/welcome_regist_finish_color"
+        android:layout_below="@+id/btn_thrid_login" />
+
 
 
 

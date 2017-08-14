@@ -30,7 +30,11 @@ import com.litesuits.http.request.param.HttpMethods;
 import com.litesuits.http.request.param.HttpRichParamModel;
 import com.litesuits.http.response.Response;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -99,28 +103,32 @@ public class AppApi {
      * @param name
      * @param listener
      */
-    public static void postForRegist(Context context, String name, HttpListener<RegistData> listener, LinkedList<NameValuePair> pList) {
+    public static void postForRegist(Context context, String name, HttpListener<RegistData> listener, HashMap<String,String> postDatas) {
+
         MultipartBody body = new MultipartBody();
        /* body.addPart(new StringPart("alias", "小宝"));
-        body.addPart(new StringPart("username", "18201090103"));
+        body.addPart(new StringPart("username", "18201090104"));
         body.addPart(new StringPart("password", "123456"));
         body.addPart(new StringPart("topassword", "123456"));*/
 
-        pList = new LinkedList<NameValuePair>();
-        for (int i = 0; i < pList.size(); i++) {
-            String name1 = pList.get(i).getName();
-            String value1 = pList.get(i).getValue();
-            NameValuePair pair = new NameValuePair(name1,value1);
-            pList.add(pair);
-
+        Set<Map.Entry<String, String>> entries = postDatas.entrySet();
+        Iterator<Map.Entry<String, String>> iterator = entries.iterator();
+        while (iterator.hasNext()){
+            Map.Entry<String, String> next = iterator.next();
+            String key = next.getKey();
+            String value = next.getValue();
+            StringPart part = new StringPart(key,value);
+            body.addPart(part);
         }
+
+
 
         AppContext.getHttp(context).executeAsync(new JsonAbsRequest<RegistData>(REGIST_URL){
 
 
         }
                         .setMethod(HttpMethods.Post)
-                        .setHttpBody(new UrlEncodedFormBody(pList))
+                        .setHttpBody(body)
                         .addHeader(AppContext.addHttpHeader())
                         .setHttpListener(listener)
 

@@ -1,13 +1,15 @@
 package com.home.we.yuandiary.bean;
+
 /**
- * Created by pactera on 2017/8/10.
+ * Created by pactera on 2017/8/14.
  */
 
-public class RegistData {
+public class LoginFailed {
+
 
     /**
      * flag : 402
-     * data : 陛下昵称还没填呢
+     * data : 密码不正确
      * msg :
      */
 
@@ -37,15 +39,5 @@ public class RegistData {
 
     public void setMsg(String msg) {
         this.msg = msg;
-    }
-
-
-    @Override
-    public String toString() {
-        return "RegistData{" +
-                "flag='" + flag + '\'' +
-                ", data='" + data + '\'' +
-                ", msg='" + msg + '\'' +
-                '}';
     }
 }

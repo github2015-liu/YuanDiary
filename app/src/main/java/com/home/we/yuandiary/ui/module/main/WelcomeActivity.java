@@ -21,19 +21,25 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.home.we.yuandiary.R;
+import com.home.we.yuandiary.bean.LoginFailed;
 import com.home.we.yuandiary.bean.LoginFedBack;
 import com.home.we.yuandiary.bean.RegistData;
 import com.home.we.yuandiary.common.util.Constant;
+import com.home.we.yuandiary.common.util.GsonUtil;
 import com.home.we.yuandiary.litehttp.AppApi;
 import com.home.we.yuandiary.litehttp.AppContext;
 import com.home.we.yuandiary.ui.util.BaseActivity;
 import com.litesuits.http.data.NameValuePair;
 import com.litesuits.http.exception.HttpException;
 import com.litesuits.http.listener.HttpListener;
+import com.litesuits.http.request.content.multi.MultipartBody;
 import com.litesuits.http.response.Response;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 import cn.jesse.nativelogger.NLogger;
 
@@ -41,7 +47,7 @@ import cn.jesse.nativelogger.NLogger;
  * Created by pactera on 2017/7/26.
  */
 
-public class WelcomeActivity extends Activity {
+public class WelcomeActivity extends BaseActivity {
     private Button btn_welcome_regist;
     private Button btn_welcome_login;
     private Button btn_welcome_finish_regist;
@@ -54,7 +60,7 @@ public class WelcomeActivity extends Activity {
     private EditText et_login_pwd;
     private Button btn_pop_login;
     private Button btn_pop_thrid_login;
-
+    private TextView tv_login_BackInfo;
 
     private TextView tv_server_fedback;
 
@@ -94,6 +100,7 @@ public class WelcomeActivity extends Activity {
                 et_login_pwd = (EditText) pop_View.findViewById(R.id.et_login_pwd);
                 btn_pop_login = (Button) pop_View.findViewById(R.id.btn_login);
                 btn_pop_thrid_login = (Button) pop_View.findViewById(R.id.btn_thrid_login);
+                tv_login_BackInfo = (TextView) pop_View.findViewById(R.id.tv_loginBackInfo);
 
                 WindowManager windowManager = getWindowManager();
                 int width = windowManager.getDefaultDisplay().getWidth();
@@ -123,6 +130,8 @@ public class WelcomeActivity extends Activity {
                     @Override
                     public void onClick(View v) {
 
+                        NLogger.d("ljk","---------------》点击登录按钮");
+
                         //获取注册信息
                         String s_login_phoneNum = et_login_phoneNum.getText().toString().trim();
                         String s_login_pwd = et_login_pwd.getText().toString().trim();
@@ -138,11 +147,13 @@ public class WelcomeActivity extends Activity {
                                         super.onSuccess(loginFedBack, response);
                                         NLogger.d("ljk","LOGIN onSuccess");
                                         String flag = loginFedBack.getFlag();
-                                        NLogger.d("ljk", "登录标识" + flag);
+                                        NLogger.d("ljk", "登录标识" + response.toString());
 
                                         if(flag.equals("001")) { //登录成功
                                             Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
                                             startActivity(intent);
+                                        }else {
+
                                         }
 
                                     }
@@ -150,8 +161,9 @@ public class WelcomeActivity extends Activity {
                                     @Override
                                     public void onFailure(HttpException e, Response<LoginFedBack> response) {
                                         super.onFailure(e, response);
-
-                                        NLogger.d("ljk","LOGIN onFailure");
+                                        String rawString = response.getRawString();
+                                        LoginFailed loginFailed = GsonUtil.parseJsonWithGson(rawString, LoginFailed.class);
+                                        tv_login_BackInfo.setText(loginFailed.getData());
 
                                     }
                                 })
@@ -238,6 +250,7 @@ public class WelcomeActivity extends Activity {
     private void inits() {
         btn_welcome_regist = (Button) findViewById(R.id.btn_welcome_register);
         btn_welcome_login = (Button) findViewById(R.id.btn_welcome_login);
+
     }
 
 
@@ -281,8 +294,6 @@ public class WelcomeActivity extends Activity {
                 String s_welcome_phoneNum = et_welcome_phoneNum.getText().toString().trim();
                 String s_welcome_pwd = et_welcome_pwd.getText().toString().trim();
                 String s_welcome_name = et_welcome_name.getText().toString().trim();
-
-
 
 
 
@@ -402,24 +413,16 @@ public class WelcomeActivity extends Activity {
                         String welcome_name = et_welcome_name.getText().toString().trim();
 
 
+                        HashMap<String, String> postDatas = new HashMap<String, String>();
+                        postDatas.put("alias",welcome_name);
+                        postDatas.put("username",welcome_phoneNum);
+                        postDatas.put("password",welcome_pwd);
+                        postDatas.put("topassword",welcome_pwd);
+
+
+
                         NLogger.d("ljk","注册数据\n" + "welcome_phoneNum" + welcome_phoneNum + "\nwelcome_pwd" + welcome_pwd
                                 + "s_welcome_name" + welcome_name);
-
-
-
-
-                        NameValuePair nameValuePair1 =new NameValuePair("alias",welcome_name);
-                        NameValuePair nameValuePair2 =new NameValuePair("username",welcome_phoneNum);
-                        NameValuePair nameValuePair3 =new NameValuePair("password",welcome_pwd);
-                        NameValuePair nameValuePair4 =new NameValuePair("topassword",welcome_pwd);
-
-                        LinkedList<NameValuePair> linkedList = new LinkedList<NameValuePair>();
-                        linkedList.add(nameValuePair1);
-                        linkedList.add(nameValuePair2);
-                        linkedList.add(nameValuePair3);
-                        linkedList.add(nameValuePair4);
-
-
 
 
                         AppApi.postForRegist(WelcomeActivity.this, null, new HttpListener<RegistData>() {
@@ -427,21 +430,23 @@ public class WelcomeActivity extends Activity {
                             public void onSuccess(RegistData registData, Response<RegistData> response) {
                                 super.onSuccess(registData, response);
                                 String fedBack_regist_message = registData.getData();
+                                //NLogger.d("ljk","注册返回数据\n" + registData.toString());
+                                NLogger.d("ljk", response.toString());
 
                                 tv_server_fedback.setVisibility(View.VISIBLE);
                                 tv_server_fedback.setText(fedBack_regist_message);
 
-                                //注册成功 1s 后关闭注册window
-                               /* Message message = new Message();
-                                message.arg1 = 5;
-                                m_close_popWindow_Handler.sendMessageDelayed(message,1000);*/
+
                             }
 
                             @Override
                             public void onFailure(HttpException e, Response<RegistData> response) {
                                 super.onFailure(e, response);
                             }
-                        },linkedList);
+
+
+
+                        },postDatas);
 
 
 
