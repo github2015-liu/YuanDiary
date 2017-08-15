@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.home.we.yuandiary.bean.LoginFedBack;
+import com.home.we.yuandiary.bean.QA;
 import com.home.we.yuandiary.bean.RegistData;
 import com.home.we.yuandiary.model.Phone;
 import com.home.we.yuandiary.model.QuestionAndAnswer;
@@ -45,7 +46,12 @@ import java.util.concurrent.TimeUnit;
 public class AppApi {
 
     private static final String PICTURE_URL = "http://odhoy5nad.bkt.clouddn.com/tu%20%2830%29.jpg";
+
+    //注册
     private static final String REGIST_URL = "http://114.215.238.246/api?padapi=user-userreg.php";
+
+    //问答接口
+    private static final String QA_URL = "http://114.215.238.246/api?padapi=questask-asklist.php";
 
 
     /**
@@ -82,6 +88,24 @@ public class AppApi {
      *
      * 获取登录返回数据
      */
+    @HttpUri(QA_URL)
+    @HttpMethod(HttpMethods.Post)
+    @HttpID(1)
+    @HttpCacheMode(CacheMode.CacheFirst)
+    @HttpCacheExpire(value = 1, unit = TimeUnit.MINUTES)
+    public static class  QAParam extends HttpRichParamModel<QA> {
+
+
+        public QAParam() {
+
+        }
+    }
+
+
+    /**
+     *
+     * 获取问答列表返回数据
+     */
     @HttpUri("http://114.215.238.246/api?padapi=login-login.php")
     @HttpMethod(HttpMethods.Post)
     @HttpID(1)
@@ -97,6 +121,12 @@ public class AppApi {
         }
     }
 
+
+
+
+
+
+
     /**
      * 演示
      *
@@ -106,11 +136,6 @@ public class AppApi {
     public static void postForRegist(Context context, String name, HttpListener<RegistData> listener, HashMap<String,String> postDatas) {
 
         MultipartBody body = new MultipartBody();
-       /* body.addPart(new StringPart("alias", "小宝"));
-        body.addPart(new StringPart("username", "18201090104"));
-        body.addPart(new StringPart("password", "123456"));
-        body.addPart(new StringPart("topassword", "123456"));*/
-
         Set<Map.Entry<String, String>> entries = postDatas.entrySet();
         Iterator<Map.Entry<String, String>> iterator = entries.iterator();
         while (iterator.hasNext()){
@@ -134,13 +159,7 @@ public class AppApi {
 
         );
 
-       /* AppContext.getHttp(context).executeAsync(new StringRequest(REGIST_URL)
-                .setMethod(HttpMethods.Post)
-                //.addUrlParam("","")在url 后面追加参数
 
-                .setHttpBody(new UrlEncodedFormBody(pList))
-                .addHeader(AppContext.addHttpHeader())
-                .setHttpListener(listener));*/
 
     }
 

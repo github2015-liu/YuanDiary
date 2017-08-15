@@ -15,13 +15,21 @@ import android.widget.ScrollView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.home.we.yuandiary.R;
+import com.home.we.yuandiary.bean.QA;
+import com.home.we.yuandiary.litehttp.AppApi;
+import com.home.we.yuandiary.litehttp.AppContext;
 import com.home.we.yuandiary.ui.util.MeiTuanHeaderLayout;
+import com.litesuits.http.exception.HttpException;
+import com.litesuits.http.listener.HttpListener;
+import com.litesuits.http.response.Response;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+
+import cn.jesse.nativelogger.NLogger;
 
 
 /**
@@ -83,6 +91,27 @@ public class QAFragment extends Fragment {
 
         //解决ScroolView 嵌套 ListView 只显示一行的问题，ScroolView 无法计算listView 的行高，需要自己设置
         setListViewHeightBasedOnChildren(lv_qa);
+
+
+        //获取问答接口数据
+        AppContext.getHttp(getActivity())
+            .executeAsync(new AppApi.QAParam().setHttpListener(new HttpListener<QA>() {
+                @Override
+                public void onSuccess(QA qa, Response<QA> response) {
+                    super.onSuccess(qa, response);
+
+                    //获取问答数据
+                    NLogger.d("ljk" ,"onSuccess" + response.toString());
+
+                }
+
+                @Override
+                public void onFailure(HttpException e, Response<QA> response) {
+                    super.onFailure(e, response);
+                    NLogger.d("ljk" ,"onFailure" + response.toString());
+
+                }
+            }));
 
 
         mPullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
