@@ -15,6 +15,7 @@ import android.widget.ScrollView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.home.we.yuandiary.R;
+import com.home.we.yuandiary.adapter.QAAdapter;
 import com.home.we.yuandiary.bean.QA;
 import com.home.we.yuandiary.litehttp.AppApi;
 import com.home.we.yuandiary.litehttp.AppContext;
@@ -52,10 +53,13 @@ public class QAFragment extends Fragment {
 
     private String[] datas = {"apple","Banana","Orange","apple","Banana","Orange"};
 
+
     private LinkedList<String> listItems = new LinkedList<>();
 
 
     /*************************************************/
+
+    private List<QA.DataBean> qAlists;
 
 
 
@@ -84,13 +88,15 @@ public class QAFragment extends Fragment {
 
 
     private void initEvents() {
+
+        qAlists = new ArrayList<>();
         //刚开始模拟数据添加
-        listItems.addAll(Arrays.asList(datas));
+      /*  listItems.addAll(Arrays.asList(datas));
         madapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,listItems);
-        lv_qa.setAdapter(madapter);
+        lv_qa.setAdapter(madapter);*/
 
         //解决ScroolView 嵌套 ListView 只显示一行的问题，ScroolView 无法计算listView 的行高，需要自己设置
-        setListViewHeightBasedOnChildren(lv_qa);
+        //setListViewHeightBasedOnChildren(lv_qa);
 
 
         //获取问答接口数据
@@ -101,7 +107,15 @@ public class QAFragment extends Fragment {
                     super.onSuccess(qa, response);
 
                     //获取问答数据
-                    NLogger.d("ljk" ,"onSuccess" + response.toString());
+                    NLogger.d("ljk" ,"onSuccess" + qa);
+
+                    List<QA.DataBean> data = qa.getData();
+                    qAlists.addAll(data);
+
+                    //NLogger.d("ljk","问答列表集成长度" + qAlists.size());
+                    lv_qa.setAdapter(new QAAdapter(getContext(),qAlists));
+                    setListViewHeightBasedOnChildren(lv_qa);
+
 
                 }
 
@@ -118,7 +132,7 @@ public class QAFragment extends Fragment {
 
             @Override
             public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
-                new GetDataTask().execute();
+                //new GetDataTask().execute();
 
                 //1.添加数据
 
@@ -160,6 +174,7 @@ public class QAFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_qa, null);
         lv_qa = (ListView) view.findViewById(R.id.lv_qa);
+
 
 
 
