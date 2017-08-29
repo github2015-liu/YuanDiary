@@ -8,6 +8,7 @@ public class Constant {
     public static int VALIDATE_REGIST1 = 0;
     public static int VALIDATE_REGIST2 = 0;
     public static int VALIDATE_REGIST3 = 0;
+    public static int PAGENO = 1;
 
 
 }

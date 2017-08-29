@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <FrameLayout
+    <RelativeLayout
         android:background="#00000000"
         android:id="@+id/fl_inner"
         android:layout_width="match_parent"
@@ -15,10 +15,18 @@
             android:id="@+id/pull_to_refresh_baby"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_centerVertical="true"
-            android:layout_gravity="bottom|center_horizontal"
+            android:layout_centerHorizontal="true"
             android:src="@mipmap/pull_image" />
 
-    </FrameLayout>
+        <!--<TextView
+            android:id="@+id/tv_refresh_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/pull_to_refresh_baby"
+            android:text="刷新了5条数据"
+            />-->
+
+    </RelativeLayout>
 
 </merge>

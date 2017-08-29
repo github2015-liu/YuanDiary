@@ -84,6 +84,10 @@ public class QAAdapter extends BaseAdapter {
 
         //问答中的图片
         String pic = dataBean.getPic();
+        if(pic.equals("")) {
+            NLogger.d("ljk","没有图片");
+            viewHolder.iv_qa_pic.setVisibility(View.GONE);
+        }
         Glide.with(mContext).load(pic).into(viewHolder.iv_qa_pic);
 
 

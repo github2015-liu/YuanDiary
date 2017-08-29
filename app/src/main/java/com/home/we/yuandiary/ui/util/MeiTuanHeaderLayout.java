@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.handmark.pulltorefresh.library.LoadingLayoutBase;
 import com.home.we.yuandiary.R;
@@ -20,7 +21,7 @@ public class MeiTuanHeaderLayout extends LoadingLayoutBase{
 
     static final String LOG_TAG = "PullToRefresh-MeiTuanHeaderLayout";
 
-    private FrameLayout mInnerLayout;
+    private RelativeLayout mInnerLayout;
     private ImageView mBabyImage;
 
     private AnimationDrawable animBabyShow;
@@ -31,7 +32,7 @@ public class MeiTuanHeaderLayout extends LoadingLayoutBase{
 
         Log.d("ljk","MeiTuanHeaderLayout 初始化");
         LayoutInflater.from(context).inflate(R.layout.meituan_header_loadinglayout, this);
-        mInnerLayout = (FrameLayout) findViewById(R.id.fl_inner);
+        mInnerLayout = (RelativeLayout) findViewById(R.id.fl_inner);
         mBabyImage = (ImageView) mInnerLayout.findViewById(R.id.pull_to_refresh_baby);
 
         FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mInnerLayout.getLayoutParams();

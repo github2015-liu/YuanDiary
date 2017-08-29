@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(QAFragment.newInstance("问答"));
         adapter.addFragment(MineFragment.newInstance("我的"));
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(2);
     }
 
     //

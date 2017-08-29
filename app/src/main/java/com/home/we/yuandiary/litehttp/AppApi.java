@@ -92,12 +92,12 @@ public class AppApi {
     @HttpMethod(HttpMethods.Post)
     @HttpID(1)
     @HttpCacheMode(CacheMode.CacheFirst)
-    @HttpCacheExpire(value = 1, unit = TimeUnit.MINUTES)
+    //缓存时间时间1分钟
+    //@HttpCacheExpire(value = 10, unit = TimeUnit.MINUTES)
     public static class  QAParam extends HttpRichParamModel<QA> {
-
-
-        public QAParam() {
-
+        private int p;
+        public QAParam(int p) {
+            this.p = p;
         }
     }
 
