@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="210dp"
+    android:background="@color/mine_line_color"
+    >
+
+
+    <TextView
+        android:id="@+id/tv_home_know_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:text="你可能想认识他们"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_home_know_more"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:text="更多"
+        android:textColor="@color/home_konw_more"
+        android:textSize="12dp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_home_people_info1"
+        android:layout_width="150dp"
+        android:layout_height="180dp"
+        android:layout_alignLeft="@+id/tv_home_know_friend"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/tv_home_know_friend"
+        android:background="@color/home_know_more_bg">
+
+        <ImageView
+            android:id="@+id/iv_home_know_people_delete"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <ImageView
+            android:id="@+id/iv_home_know_people_pic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_home_know_people_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_home_know_people_pic"
+            android:layout_centerInParent="true"
+            android:text="陈健"
+
+            />
+
+        <RelativeLayout
+            android:id="@+id/rl_home_know_people_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_home_know_people_name">
+
+            <TextView
+                android:id="@+id/tv_home_know_people_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="北京风谷科技有限公司渠道经理/销售经理"
+                android:textSize="12dp"
+
+                />
+
+            <ImageView
+                android:id="@+id/iv_home_know_people_v"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:src="@mipmap/ic_launcher" />
+        </RelativeLayout>
+
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:layout_below="@id/rl_home_know_people_info"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_circle_foot"
+            android:text="+关注"
+            android:textColor="@color/common_header"
+            android:textSize="12dp"
+
+
+            />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="150dp"
+        android:layout_height="180dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/rl_home_people_info1"
+        android:background="@color/home_know_more_bg">
+
+        <ImageView
+            android:id="@+id/iv_home_know_people_delete2"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <ImageView
+            android:id="@+id/iv_home_know_people_pic2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_home_know_people_name2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_home_know_people_pic2"
+            android:layout_centerInParent="true"
+            android:text="蔡欢"
+
+            />
+
+        <RelativeLayout
+            android:id="@+id/rl_home_know_people_info2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tv_home_know_people_name2">
+
+            <TextView
+                android:id="@+id/tv_home_know_people_company2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="去哪儿无线事业群副总裁"
+                android:textSize="12dp"
+
+                />
+
+            <ImageView
+                android:id="@+id/iv_home_know_people_v2"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:src="@mipmap/ic_launcher" />
+        </RelativeLayout>
+
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:layout_below="@id/rl_home_know_people_info2"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="23dp"
+            android:background="@drawable/btn_circle_foot"
+            android:text="+关注"
+            android:textColor="@color/common_header"
+            android:textSize="12dp"
+
+            />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

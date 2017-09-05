@@ -38,11 +38,12 @@ public class AppContext {   //这里应该继承baseApplication
         mHttp = LiteHttp.build(context)
                 .setDebugged(true)                   // log output when debugged
                 .setDetectNetwork(true)              // detect network before connect
-                .setDoStatistics(true)               // statistics of time and traffic
-                .setUserAgent("Mozilla/5.0 (...)")
+                //.setDoStatistics(true)               // 设置全局是否开启流量、耗时等统计。设置全局是否开启流量、耗时等统计。
+                //.setUserAgent("Mozilla/5.0 (...)")   // 设置全局的user-agent
                 .setDefaultMaxRetryTimes(0)
-                // set custom User-Agent
                 .setSocketTimeout(10000)
+                //.setDefaultCacheDir("/sdcard/lite")  // 设置缓存路径，但缓存数据有误
+                .setMaxMemCacheBytesSize(1024 * 300)
                 .setConnectTimeout(10000)
                 .create();
         // connect and socket timeout: 10s

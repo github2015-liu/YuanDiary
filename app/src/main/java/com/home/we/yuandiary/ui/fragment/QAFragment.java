@@ -1,10 +1,13 @@
 package com.home.we.yuandiary.ui.fragment;
 
+import android.content.Context;
 import android.graphics.pdf.PdfDocument;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.util.LruCache;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.home.we.yuandiary.R;
@@ -26,6 +30,7 @@ import com.home.we.yuandiary.common.util.NetworkUtil;
 import com.home.we.yuandiary.common.util.SharedUtil;
 import com.home.we.yuandiary.litehttp.AppApi;
 import com.home.we.yuandiary.litehttp.AppContext;
+import com.home.we.yuandiary.ui.util.LruJsonCache;
 import com.home.we.yuandiary.ui.util.MeiTuanHeaderLayout;
 import com.litesuits.http.exception.HttpException;
 import com.litesuits.http.listener.HttpListener;
@@ -53,7 +58,13 @@ public class QAFragment extends Fragment {
     public static final String url = "http://baidu.com";
     public static final String yuanDiaryUrl = "http://114.215.238.246/api?padapi=questask-asklist.php";
 
+    private LruJsonCache mlruJsonCache; //缓存框架
+    private StringBuilder msbuilder = new StringBuilder();
+    private Context mContext;
+
     private ListView lv_qa;
+
+
 
     private PullToRefreshScrollView mPullToRefreshScrollView;
     private int pageNo = 1;
@@ -96,42 +107,79 @@ public class QAFragment extends Fragment {
 
 
     private void initEvents() {
-
+        FragmentActivity activity = getActivity();
+        mlruJsonCache = LruJsonCache.get(activity); //初始化缓存框架
 
         pageNo = SharedUtil.getInt("pageNo");
+        if( !NetworkUtil.isNetworkAvailable(getContext())) { //没网从缓存中取数据
+            String cacheData = mlruJsonCache.getAsString("qaLists");
+            if(cacheData != null) {//如果缓存中有数据，先不访问网络
 
-        NLogger.d("ljk","当前的页数是" + pageNo);
-
-        //获取问答接口数据
-        AppContext.getHttp(getActivity())
-            .executeAsync(new AppApi.QAParam(pageNo).setHttpListener(new HttpListener<QA>() {
-                @Override
-                public void onSuccess(QA qa, Response<QA> response) {
-                    super.onSuccess(qa, response);
-                    boolean cacheHit = response.isCacheHit();
-
-                    NLogger.d("ljk", "是否使用缓存" + cacheHit);
-                    //获取问答数据
-                    NLogger.d("ljk" ,"初始刷新onSuccess" + response.toString());
-
+                NLogger.d("ljk","里面缓存的json是" + cacheData);
+                // $是特殊字符需要转义
+                String[] jsonStr = cacheData.split("\\$");
+                NLogger.d("ljk","缓存json 串长度" + jsonStr.length);
+                Gson gson = new Gson();
+                for (int i = 0; i < jsonStr.length; i++) {
+                    QA qa = gson.fromJson(jsonStr[i], QA.class);
                     List<QA.DataBean> data = qa.getData();
                     qAlists.addAll(data);
-
-                    mqaAdapter = new QAAdapter(getContext(),qAlists);
-                    //NLogger.d("ljk","问答列表集成长度" + qAlists.size());
-                    lv_qa.setAdapter(mqaAdapter);
-                    setListViewHeightBasedOnChildren(lv_qa);
-
-
                 }
 
-                @Override
-                public void onFailure(HttpException e, Response<QA> response) {
-                    super.onFailure(e, response);
-                    NLogger.d("ljk" ,"初始刷新onFailure" + response.toString());
+                mqaAdapter = new QAAdapter(getContext(),qAlists);
+                lv_qa.setAdapter(mqaAdapter);
+                setListViewHeightBasedOnChildren(lv_qa);
 
-                }
-            }));
+            }else {
+                NLogger.d("ljk","没有缓存数据");
+            }
+
+        }else { //有网，直接从网络获取数据
+            NLogger.d("ljk","当前的页数是" + pageNo);
+            //获取问答接口数据
+            AppContext.getHttp(activity)
+                    .executeAsync(new AppApi.QAParam(pageNo).setHttpListener(new HttpListener<QA>() {
+                        @Override
+                        public void onSuccess(QA qa, Response<QA> response) {
+                            super.onSuccess(qa, response);
+
+
+
+                            boolean cacheHit = response.isCacheHit();
+
+                            NLogger.d("ljk", "是否使用缓存" + cacheHit);
+                            //获取问答数据
+                            NLogger.d("ljk" ,"初始刷新onSuccess" + response.toString());
+
+                            if(cacheHit) { //使用缓存
+                                mPullToRefreshScrollView.onRefreshComplete();
+                                return;
+                            }
+
+                            List<QA.DataBean> data = qa.getData();  //需展示信息
+                            qAlists.addAll(data);
+                            mqaAdapter = new QAAdapter(getContext(),qAlists);
+                            //NLogger.d("ljk","问答列表集成长度" + qAlists.size());
+                            lv_qa.setAdapter(mqaAdapter);
+                            setListViewHeightBasedOnChildren(lv_qa);
+
+
+                        }
+
+                        @Override
+                        public void onFailure(HttpException e, Response<QA> response) {
+                            super.onFailure(e, response);
+                            NLogger.d("ljk" ,"初始刷新onFailure" + response.toString());
+
+                        }
+                    }));
+        }
+
+
+
+
+
+
 
 
         /**
@@ -178,10 +226,11 @@ public class QAFragment extends Fragment {
 
             @Override
             public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                final boolean networkAvailable = NetworkUtil.isNetworkAvailable(getContext());
 
 
                 pageNo = SharedUtil.getInt("pageNo");
-                NLogger.d("ljk","刷新时的页数是" + pageNo);
+                //NLogger.d("ljk","刷新时的页数是" + pageNo);
 
                 //获取问答接口数据
                 AppContext.getHttp(getActivity())
@@ -190,9 +239,24 @@ public class QAFragment extends Fragment {
                             public void onSuccess(QA qa, Response<QA> response) {
                                 super.onSuccess(qa, response);
 
+                                //第2步：设置缓存数据，有效时间设置为1小时
+                                NLogger.d("ljk","缓存了第" + pageNo + "页数据");
+
+                                //缓存的数据被新来的数据给覆盖了
+                                msbuilder.append(response.getRawString() + "$");
+
+                                mlruJsonCache.put("qaLists",msbuilder.toString(), 60*60*1);
+
+                                boolean cacheHit = response.isCacheHit();
+                                NLogger.d("ljk","下拉刷新时是否是使用缓存数据" + cacheHit);
+
+                                if(cacheHit) {
+                                    mPullToRefreshScrollView.onRefreshComplete();
+                                    return;
+                                }
+
                                 //有网pageNo + 1
 
-                                boolean networkAvailable = NetworkUtil.isNetworkAvailable(getContext());
                                 if(networkAvailable) { //有网,刷新过，刷新页数在本地+1
                                     pageNo = pageNo + 1;
                                     SharedUtil.putInt("pageNo",pageNo);
@@ -201,7 +265,6 @@ public class QAFragment extends Fragment {
                                 }
 
 
-                                boolean cacheHit = response.isCacheHit();
 
                                 NLogger.d("ljk", "是否使用缓存" + cacheHit);
                                 //获取问答数据
@@ -214,8 +277,6 @@ public class QAFragment extends Fragment {
                                 //NLogger.d("ljk","问答列表集成长度" + qAlists.size());
                                 lv_qa.setAdapter(mqaAdapter);
                                 setListViewHeightBasedOnChildren(lv_qa);
-
-
                             }
 
                             @Override
@@ -228,13 +289,24 @@ public class QAFragment extends Fragment {
 
 
                 mPullToRefreshScrollView.onRefreshComplete();
+                if (!networkAvailable) { //刷新结束后，如果网络不可用，提示用户
+                    Toast.makeText(getContext(),"请检查您的网络",Toast.LENGTH_SHORT).show();
+                }
+
 
 
             }
 
 
+
+
+
+
+
         });
     }
+
+
 
     private void setListViewHeightBasedOnChildren(ListView listView) {
         // 获取ListView对应的Adapter

@@ -91,7 +91,8 @@ public class AppApi {
     @HttpUri(QA_URL)
     @HttpMethod(HttpMethods.Post)
     @HttpID(1)
-    @HttpCacheMode(CacheMode.CacheFirst)
+    @HttpCacheMode(CacheMode.NetFirst)
+
     //缓存时间时间1分钟
     //@HttpCacheExpire(value = 10, unit = TimeUnit.MINUTES)
     public static class  QAParam extends HttpRichParamModel<QA> {

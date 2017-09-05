@@ -137,5 +137,21 @@ public class QA {
         public void setTm(String tm) {
             this.tm = tm;
         }
+
+
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "alias='" + alias + '\'' +
+                    ", avatar='" + avatar + '\'' +
+                    ", id=" + id +
+                    ", answers=" + answers +
+                    ", uid=" + uid +
+                    ", praisenum=" + praisenum +
+                    ", issue='" + issue + '\'' +
+                    ", pic='" + pic + '\'' +
+                    ", tm='" + tm + '\'' +
+                    '}';
+        }
     }
 }
