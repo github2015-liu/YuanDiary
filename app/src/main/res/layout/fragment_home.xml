@@ -43,7 +43,11 @@
     </RelativeLayout>
 
 
+    <include
+        layout="@layout/item2_dynamic"
+        >
 
+    </include>
 
 
 
