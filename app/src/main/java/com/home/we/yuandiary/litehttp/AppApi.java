@@ -6,6 +6,7 @@ import android.net.sip.SipAudioCall;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.home.we.yuandiary.bean.Dynamics;
 import com.home.we.yuandiary.bean.LoginFedBack;
 import com.home.we.yuandiary.bean.QA;
 import com.home.we.yuandiary.bean.RegistData;
@@ -48,10 +49,14 @@ public class AppApi {
     private static final String PICTURE_URL = "http://odhoy5nad.bkt.clouddn.com/tu%20%2830%29.jpg";
 
     //注册
-    private static final String REGIST_URL = "http://114.215.238.246/api?padapi=user-userreg.php";
+    private static final String REGIST_URL = "http://47.94.245.201/api?padapi=user-userreg.php";
 
     //问答接口
-    private static final String QA_URL = "http://114.215.238.246/api?padapi=questask-asklist.php";
+    private static final String QA_URL = "http://47.94.245.201/api?padapi=questask-asklist.php";
+
+    //动态接口
+    private static final String HOME_Dynamics = "http://47.94.245.201/api?padapi=dynamic-dylist.php";
+
 
 
     /**
@@ -86,7 +91,7 @@ public class AppApi {
 
     /**
      *
-     * 获取登录返回数据
+     * 获取问答列表返回数据
      */
     @HttpUri(QA_URL)
     @HttpMethod(HttpMethods.Post)
@@ -102,12 +107,30 @@ public class AppApi {
         }
     }
 
-
     /**
      *
-     * 获取问答列表返回数据
+     * 获取动态列表返回数据
      */
-    @HttpUri("http://114.215.238.246/api?padapi=login-login.php")
+    @HttpUri(HOME_Dynamics)
+    @HttpMethod(HttpMethods.Post)
+    @HttpID(1)
+    @HttpCacheMode(CacheMode.NetFirst)
+
+    //缓存时间时间1分钟
+    //@HttpCacheExpire(value = 10, unit = TimeUnit.MINUTES)
+    public static class  DynamicsParam extends HttpRichParamModel<Dynamics> {
+        private int p;
+        public DynamicsParam(int p) {
+            this.p = p;
+        }
+    }
+
+
+    /**
+     * 获取登录返回数据
+     *
+     */
+    @HttpUri("http://47.94.245.201/api?padapi=login-login.php")
     @HttpMethod(HttpMethods.Post)
     @HttpID(1)
     @HttpCacheMode(CacheMode.CacheFirst)

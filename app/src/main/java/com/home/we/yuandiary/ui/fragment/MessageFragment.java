@@ -30,14 +30,14 @@ public class MessageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message, null);
-        TextView tvInfo = (TextView) view.findViewById(R.id.textView);
+        /*TextView tvInfo = (TextView) view.findViewById(R.id.textView);
         tvInfo.setText(getArguments().getString("info"));
         tvInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Snackbar.make(v, "Don't click me.please!.", Snackbar.LENGTH_SHORT).show();
             }
-        });
+        });*/
         return view;
     }
 

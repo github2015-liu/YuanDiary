@@ -3,6 +3,7 @@ package com.home.we.yuandiary.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +59,7 @@ public class QAAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             viewHolder.tv_qa_qname = (TextView) view.findViewById(R.id.tv_qa_qname);
             viewHolder.iv_qa_person_head = (ImageView) view.findViewById(R.id.iv_q_person_head);
-            viewHolder.iv_qa_pic = (ImageView) view.findViewById(R.id.iv_qa_pic);
+            //viewHolder.iv_qa_pic = (ImageView) view.findViewById(R.id.iv_qa_pic);
             viewHolder.tv_qa_person = (TextView) view.findViewById(R.id.tv_q_person);
             viewHolder.tv_qa_time = (TextView) view.findViewById(R.id.tv_q_time);
             viewHolder.tv_qa_count = (TextView) view.findViewById(R.id.tv_a_count);
@@ -70,11 +71,27 @@ public class QAAdapter extends BaseAdapter {
 
         }
 
+        String issue = dataBean.getIssue();
+        Log.d("ljk","-------->问题" + issue);
+
+        // 如果问题为空，那么隐藏View
+        if(issue.equals("")) {
+            viewHolder.tv_qa_qname.setVisibility(View.GONE);
+
+        }
         //问题
-        viewHolder.tv_qa_qname.setText(dataBean.getIssue());
+        viewHolder.tv_qa_qname.setText(issue);
+
+
+
+
         String head_pic_url = dataBean.getAvatar(); //图片路径
+
+        Log.d("ljk","-------->头像图片" + head_pic_url);
         //利用Glide 从网络加载图片
-        Glide.with(mContext).load(head_pic_url).into(viewHolder.iv_qa_person_head);
+        Glide.with(mContext)
+                .load(head_pic_url)
+                .into(viewHolder.iv_qa_person_head);
         viewHolder.tv_qa_person.setText(dataBean.getAlias());
         viewHolder.tv_qa_time.setText("提问于" + dataBean.getTm());
         //回答数
@@ -83,12 +100,13 @@ public class QAAdapter extends BaseAdapter {
         viewHolder.tv_qa_count.setText("回答" + answers);
 
         //问答中的图片
-        String pic = dataBean.getPic();
+       /* Log.d("ljk","-------->问答图片" + pic);
+
         if(pic.equals("")) {
             NLogger.d("ljk","没有图片");
             viewHolder.iv_qa_pic.setVisibility(View.GONE);
         }
-        Glide.with(mContext).load(pic).into(viewHolder.iv_qa_pic);
+        Glide.with(mContext).load(pic).into(viewHolder.iv_qa_pic);*/
 
 
 

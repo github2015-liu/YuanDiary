@@ -56,7 +56,7 @@ public class QAFragment extends Fragment {
     public static final String baseUrl = "http://litesuits.com";
     public static final String picUrl = "/mockdata/a.jpg";
     public static final String url = "http://baidu.com";
-    public static final String yuanDiaryUrl = "http://114.215.238.246/api?padapi=questask-asklist.php";
+    public static final String yuanDiaryUrl = "http://47.94.245.201/api?padapi=questask-asklist.php";
 
     private LruJsonCache mlruJsonCache; //缓存框架
     private StringBuilder msbuilder = new StringBuilder();
@@ -135,6 +135,7 @@ public class QAFragment extends Fragment {
             }
 
         }else { //有网，直接从网络获取数据
+            pageNo = 1;
             NLogger.d("ljk","当前的页数是" + pageNo);
             //获取问答接口数据
             AppContext.getHttp(activity)

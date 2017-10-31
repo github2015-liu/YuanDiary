@@ -6,6 +6,8 @@ import android.util.Log;
 
 import com.home.we.yuandiary.common.util.Constant;
 import com.home.we.yuandiary.common.util.SharedUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import cn.jesse.nativelogger.NLogger;
 import cn.jesse.nativelogger.formatter.SimpleFormatter;
@@ -28,6 +30,7 @@ public class YuanDiaryApplication extends Application {
         mContext = getApplicationContext();
         initLocalLog();
         initSharedPreferences();
+        initImageLoader();
 
 
     }
@@ -67,6 +70,12 @@ public class YuanDiaryApplication extends Application {
                 .build();
 
 
+
+    }
+
+    private void initImageLoader() {
+        ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);
+        ImageLoader.getInstance().init(configuration);
 
     }
 }
