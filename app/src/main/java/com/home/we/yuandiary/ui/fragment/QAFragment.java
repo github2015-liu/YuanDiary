@@ -17,13 +17,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.home.we.yuandiary.R;
+import com.home.we.yuandiary.adapter.DynamicAdapter;
 import com.home.we.yuandiary.adapter.QAAdapter;
+import com.home.we.yuandiary.bean.Dynamics;
 import com.home.we.yuandiary.bean.QA;
 import com.home.we.yuandiary.common.util.Constant;
 import com.home.we.yuandiary.common.util.NetworkUtil;
@@ -41,6 +45,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import cn.jesse.nativelogger.NLogger;
+import cn.jesse.nativelogger.logger.base.IFileLogger;
 import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -53,6 +58,16 @@ import rx.schedulers.Schedulers;
 
 public class QAFragment extends Fragment {
 
+    public static QAFragment newInstance(String info) {
+        Bundle args = new Bundle();
+        QAFragment fragment = new QAFragment();
+        args.putString("info", info);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
+
     public static final String baseUrl = "http://litesuits.com";
     public static final String picUrl = "/mockdata/a.jpg";
     public static final String url = "http://baidu.com";
@@ -62,11 +77,10 @@ public class QAFragment extends Fragment {
     private StringBuilder msbuilder = new StringBuilder();
     private Context mContext;
 
-    private ListView lv_qa;
+    private PullToRefreshListView lv_qa;
 
 
 
-    private PullToRefreshScrollView mPullToRefreshScrollView;
     private int pageNo = 1;
 
     /***********************test**************************/
@@ -83,32 +97,27 @@ public class QAFragment extends Fragment {
 
     private int currentIetm = 0;
 
-    private List<QA.DataBean> qAlists = new ArrayList<>();
+    private List<QA.DataBean> dAlists = new ArrayList<>();
 
     private QAAdapter mqaAdapter;
 
+    //加载更多
+
+    private LayoutInflater mInflater;
+    private View mFootView;
 
 
 
-    public static QAFragment newInstance(String info) {
-        Bundle args = new Bundle();
-        QAFragment fragment = new QAFragment();
-        args.putString("info", info);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
 
-    }
+
 
 
     private void initEvents() {
         FragmentActivity activity = getActivity();
-        mlruJsonCache = LruJsonCache.get(activity); //初始化缓存框架
+        mlruJsonCache = LruJsonCache.get(activity, "DynamicsLruJsonCache"); //初始化缓存框架
+
+
 
         pageNo = SharedUtil.getInt("pageNo");
         if( !NetworkUtil.isNetworkAvailable(getContext())) { //没网从缓存中取数据
@@ -121,14 +130,13 @@ public class QAFragment extends Fragment {
                 NLogger.d("ljk","缓存json 串长度" + jsonStr.length);
                 Gson gson = new Gson();
                 for (int i = 0; i < jsonStr.length; i++) {
-                    QA qa = gson.fromJson(jsonStr[i], QA.class);
-                    List<QA.DataBean> data = qa.getData();
-                    qAlists.addAll(data);
+                    QA dy = gson.fromJson(jsonStr[i], QA.class);
+                    List<QA.DataBean> data = dy.getData();
+                    dAlists.addAll(data);
                 }
 
-                mqaAdapter = new QAAdapter(getContext(),qAlists);
+                mqaAdapter = new QAAdapter(getContext(),dAlists);
                 lv_qa.setAdapter(mqaAdapter);
-                setListViewHeightBasedOnChildren(lv_qa);
 
             }else {
                 NLogger.d("ljk","没有缓存数据");
@@ -153,16 +161,14 @@ public class QAFragment extends Fragment {
                             NLogger.d("ljk" ,"初始刷新onSuccess" + response.toString());
 
                             if(cacheHit) { //使用缓存
-                                mPullToRefreshScrollView.onRefreshComplete();
                                 return;
                             }
 
                             List<QA.DataBean> data = qa.getData();  //需展示信息
-                            qAlists.addAll(data);
-                            mqaAdapter = new QAAdapter(getContext(),qAlists);
+                            dAlists.addAll(data);
+                            mqaAdapter = new QAAdapter(getContext(),dAlists);
                             //NLogger.d("ljk","问答列表集成长度" + qAlists.size());
                             lv_qa.setAdapter(mqaAdapter);
-                            setListViewHeightBasedOnChildren(lv_qa);
 
 
                         }
@@ -177,56 +183,70 @@ public class QAFragment extends Fragment {
         }
 
 
-
-
-
-
-
-
-        /**
-         * 判断是否滑动到底部
-         *
-         */
-
-        lv_qa.setOnScrollListener(new AbsListView.OnScrollListener() {
+        lv_qa.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+
+                NLogger.d("ryy","下拉刷新");
+                pullDownToRefresh();
+
 
             }
 
-            /**
-             *
-             * @param view
-             * @param firstVisibleItem 当前能看见的第一个列表项ID（从0开始）
-             * @param visibleItemCount 当前能看见的列表项个数（小半个也算）
-             * @param totalItemCount 列表项共数
-             */
+
+
             @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
 
-                if(firstVisibleItem == 0) {//刷新时，没有一项需要重新setAdapter
-                    currentIetm = firstVisibleItem;
-                    NLogger.d("ljk", "刷新时，没有一项需要重新setAdapter");
-                }
+                NLogger.d("ryy","上拉加载");
 
-                if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount > 0) {
+                pullUpLoadData();
 
-                    NLogger.d("ljk","已经滑动到底部");
-/*
-                    Toast.makeText(getActivity(),"已经滑动到底部",Toast.LENGTH_SHORT);
-*/
-                }
             }
-        });
 
 
-        /**
-         * 每次下拉时刷新数据
-         */
-        mPullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
+            private void pullDownToRefresh() {
+                int page = 0;
+                //获取问答接口数据
+                AppContext.getHttp(getContext())
+                        .executeAsync(new AppApi.QAParam(page).setHttpListener(new HttpListener<QA>() {
+                            @Override
+                            public void onSuccess(QA qa, Response<QA> response) {
+                                super.onSuccess(qa, response);
 
-            @Override
-            public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
+
+                                List<QA.DataBean> data = qa.getData();  //需展示信息
+
+                                boolean dataNull = data.toString().equals("[]");
+                                NLogger.d("dataNull" + dataNull);
+                                if(!dataNull) {
+                                    //dAlists.addAll(data);
+
+                                    mqaAdapter = new QAAdapter(getContext(),data);
+                                    //NLogger.d("ljk","问答列表集成长度" + qAlists.size());
+                                    //lv_dynamic.setAdapter(mqaAdapter);
+                                    mqaAdapter.notifyDataSetChanged();
+                                }
+
+
+
+                                lv_qa.onRefreshComplete();
+
+
+                            }
+
+                            @Override
+                            public void onFailure(HttpException e, Response<QA> response) {
+                                super.onFailure(e, response);
+                                NLogger.d("ljk" ,"初始刷新onFailure" + response.toString());
+
+                            }
+                        }));
+
+            }
+
+            private void pullUpLoadData() {
+
                 final boolean networkAvailable = NetworkUtil.isNetworkAvailable(getContext());
 
 
@@ -240,23 +260,7 @@ public class QAFragment extends Fragment {
                             public void onSuccess(QA qa, Response<QA> response) {
                                 super.onSuccess(qa, response);
 
-                                //第2步：设置缓存数据，有效时间设置为1小时
-                                NLogger.d("ljk","缓存了第" + pageNo + "页数据");
 
-                                //缓存的数据被新来的数据给覆盖了
-                                msbuilder.append(response.getRawString() + "$");
-
-                                mlruJsonCache.put("qaLists",msbuilder.toString(), 60*60*1);
-
-                                boolean cacheHit = response.isCacheHit();
-                                NLogger.d("ljk","下拉刷新时是否是使用缓存数据" + cacheHit);
-
-                                if(cacheHit) {
-                                    mPullToRefreshScrollView.onRefreshComplete();
-                                    return;
-                                }
-
-                                //有网pageNo + 1
 
                                 if(networkAvailable) { //有网,刷新过，刷新页数在本地+1
                                     pageNo = pageNo + 1;
@@ -267,17 +271,24 @@ public class QAFragment extends Fragment {
 
 
 
-                                NLogger.d("ljk", "是否使用缓存" + cacheHit);
                                 //获取问答数据
                                 NLogger.d("ljk" ,"初始刷新onSuccess" + response.toString());
 
                                 List<QA.DataBean> data = qa.getData();
-                                qAlists.addAll(data);
+                                boolean dataNull = data.toString().equals("[]");
+                                NLogger.d("dataNull" + dataNull);
+                                if(!dataNull) {
+                                    dAlists.addAll(data);
 
-                                mqaAdapter = new QAAdapter(getContext(),qAlists);
-                                //NLogger.d("ljk","问答列表集成长度" + qAlists.size());
-                                lv_qa.setAdapter(mqaAdapter);
-                                setListViewHeightBasedOnChildren(lv_qa);
+                                    mqaAdapter = new QAAdapter(getContext(),dAlists);
+                                    //NLogger.d("ljk","问答列表集成长度" + qAlists.size());
+                                    lv_qa.setAdapter(mqaAdapter);
+                                }
+
+
+
+                                lv_qa.onRefreshComplete();
+
                             }
 
                             @Override
@@ -289,66 +300,103 @@ public class QAFragment extends Fragment {
                         }));
 
 
-                mPullToRefreshScrollView.onRefreshComplete();
                 if (!networkAvailable) { //刷新结束后，如果网络不可用，提示用户
                     Toast.makeText(getContext(),"请检查您的网络",Toast.LENGTH_SHORT).show();
                 }
+            }
 
 
+        });
+
+
+
+
+
+
+
+        //**判断是否滑动到底部
+        lv_qa.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
             }
 
 
 
 
+            /**
+             *
+             * @param view
+             * @param firstVisibleItem 当前能看见的第一个列表项ID（从0开始）
+             * @param visibleItemCount 当前能看见的列表项个数（小半个也算）
+             * @param totalItemCount 列表项共数
+             */
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                if(firstVisibleItem == 0) {//刷新时，没有一项需要重新setAdapter
+                    currentIetm = firstVisibleItem;
+                    NLogger.d("ljk", "刷新时，没有一项需要重新setAdapter");
+                }
+                NLogger.d("ljk","当前能看见的第一个列表项ID" + firstVisibleItem + "\n当前能看见的列表项个数" + visibleItemCount
+
+                        + "\n列表总数" + totalItemCount);
+
+                if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount > 0) {
+
+                    NLogger.d("ljk","已经滑动到底部");
+
+                    Toast.makeText(getActivity(),"已经滑动到底部",Toast.LENGTH_SHORT);
+
+                    loadData();
 
 
 
+                }
+            }
+
+            private void loadData() {
+
+
+
+
+            }
         });
+
+
+
     }
 
 
 
-    private void setListViewHeightBasedOnChildren(ListView listView) {
-        // 获取ListView对应的Adapter
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            return;
-        }
 
-        int totalHeight = 0;
-        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
-            // listAdapter.getCount()返回数据项的数目
-            View listItem = listAdapter.getView(i, null, listView);
-            // 计算子项View 的宽高
-            listItem.measure(0, 0);
-            // 统计所有子项的总高度
-            totalHeight += listItem.getMeasuredHeight();
-        }
-
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        // listView.getDividerHeight()获取子项间分隔符占用的高度
-        // params.height最后得到整个ListView完整显示需要的高度
-        listView.setLayoutParams(params);
-
-    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_qa, null);
-        lv_qa = (ListView) view.findViewById(R.id.lv_qa);
-        mPullToRefreshScrollView = (PullToRefreshScrollView) view.findViewById(R.id.qa_scrollview);
-        mPullToRefreshScrollView.setHeaderLayout(new MeiTuanHeaderLayout(getActivity()));
+        lv_qa = (PullToRefreshListView) view.findViewById(R.id.lv_qa);
 
+        lv_qa.setMode(PullToRefreshBase.Mode.BOTH);
+        //设置PullRefreshListView上提加载时的加载提示
+        lv_qa.getLoadingLayoutProxy(false, true).setPullLabel("上拉加载...");
+        lv_qa.getLoadingLayoutProxy(false, true).setRefreshingLabel("正在加载...");
+        lv_qa.getLoadingLayoutProxy(false, true).setReleaseLabel("松开加载更多...");
+        // 设置PullRefreshListView下拉加载时的加载提示
+        lv_qa.getLoadingLayoutProxy(true, false).setPullLabel("下拉刷新...");
+        lv_qa.getLoadingLayoutProxy(true, false).setRefreshingLabel("正在刷新...");
+        lv_qa.getLoadingLayoutProxy(true, false).setReleaseLabel("松开刷新...");
 
-        //
-        NLogger.d("ljk","------------->" + "onCreateView" + "页数" + SharedUtil.getInt("pageNo"));
         initEvents();
 
 
         return view;
+
+        //NLogger.d("ljk","------------->" + "onCreateView" + "页数" + SharedUtil.getInt("pageNo"));
+
+
     }
 
 
@@ -356,4 +404,21 @@ public class QAFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        NLogger.d("debug");
+        NLogger.i("MainActivity", "type1");
+
+
+        NLogger.zipLogs(new IFileLogger.OnZipListener() {
+            @Override
+            public void onZip(boolean succeed, String target) {
+                if (succeed)
+                    NLogger.i("zip", "succeed : " + target);
+            }
+        });
+    }
+
 }

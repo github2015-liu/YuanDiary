@@ -5,9 +5,11 @@ import android.content.Context;
 import android.util.Log;
 
 import com.home.we.yuandiary.common.util.Constant;
+import com.home.we.yuandiary.common.util.ImageLoaderUtil;
 import com.home.we.yuandiary.common.util.SharedUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 
 import cn.jesse.nativelogger.NLogger;
 import cn.jesse.nativelogger.formatter.SimpleFormatter;
@@ -74,7 +76,10 @@ public class YuanDiaryApplication extends Application {
     }
 
     private void initImageLoader() {
+        // .imageDownloader(new BaseImageDownloader(mContext))build();
+
         ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);
+
         ImageLoader.getInstance().init(configuration);
 
     }

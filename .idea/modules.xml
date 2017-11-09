@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/listviewdemo/listviewdemo.iml" filepath="$PROJECT_DIR$/listviewdemo/listviewdemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/myglidedemo/myglidedemo.iml" filepath="$PROJECT_DIR$/myglidedemo/myglidedemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pullToRefershLibrary/pullToRefershLibrary.iml" filepath="$PROJECT_DIR$/pullToRefershLibrary/pullToRefershLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/rxjavademo/rxjavademo.iml" filepath="$PROJECT_DIR$/rxjavademo/rxjavademo.iml" />
     </modules>
   </component>
