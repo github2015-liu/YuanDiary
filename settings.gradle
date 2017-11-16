@@ -1,2 +1,2 @@
-include ':app', ':listviewdemo', ':rxjavademo', ':myglidedemo'
+include ':app', ':listviewdemo', ':rxjavademo', ':myglidedemo', ':floatview'
 include ':pullToRefershLibrary'
