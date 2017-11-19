@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 
 import com.home.we.yuandiary.bean.Dynamics;
 import com.home.we.yuandiary.bean.LoginFedBack;
+import com.home.we.yuandiary.bean.LoginPersonInfo;
 import com.home.we.yuandiary.bean.QA;
 import com.home.we.yuandiary.bean.RegistData;
 import com.home.we.yuandiary.model.Phone;
@@ -56,6 +57,11 @@ public class AppApi {
 
     //动态接口
     private static final String HOME_Dynamics = "http://47.94.245.201/api?padapi=dynamic-dylist.php";
+
+
+    // 个人信息接口
+    private static final String MYUSER_INFO = "http://47.94.245.201/api?padapi=user-myinfo.php";
+
 
 
 
@@ -143,6 +149,21 @@ public class AppApi {
             this.username = username;
             this.password = password;
         }
+    }
+
+
+
+    /**
+     * 获取个人信息数据
+     *
+     */
+    @HttpUri(MYUSER_INFO)
+    @HttpMethod(HttpMethods.Post)
+    @HttpID(1)
+    @HttpCacheMode(CacheMode.CacheFirst)
+    @HttpCacheExpire(value = 1, unit = TimeUnit.MINUTES)
+    public static class  PersonInfoParam extends HttpRichParamModel<LoginPersonInfo> {
+
     }
 
 

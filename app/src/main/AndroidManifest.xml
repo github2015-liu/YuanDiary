@@ -24,6 +24,8 @@
         </activity>
 
         <activity android:name=".ui.module.main.WelcomeActivity"></activity>
+        <activity android:name=".ui.module.main.LoginPageActivity"></activity>
+        <activity android:name=".ui.module.main.RegistPageActivity"></activity>
     </application>
 
 </manifest>
