@@ -4,44 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/home_rl"
-        android:layout_width="match_parent"
-        android:layout_height="80dp">
 
-        <ImageView
-            android:id="@+id/iv_home_user_pic"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:src="@mipmap/ic_launcher"
-            android:layout_marginLeft="5dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/iv_home_user_pic"
-            android:text="#听说加V认证有收益哟还不快去！"
-            android:textStyle="bold"
-            android:textSize="17dp"
-            android:layout_marginTop="12dp"
-            />
-
-        <Button
-            android:id="@+id/btn_home_authenticate"
-            android:layout_width="65dp"
-            android:layout_height="25dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            android:text="前去认证"
-            android:background="@null"
-            />
-
-
-    </RelativeLayout>
 
 
 

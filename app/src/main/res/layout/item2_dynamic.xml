@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    >
 
     <RelativeLayout
         android:id="@+id/rl_dynamic_item"
@@ -17,8 +19,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_dynamic_person_head"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:src="@mipmap/ic_launcher" />
@@ -59,19 +61,7 @@
 
 这位00后ceo现在被曝出涉嫌抄袭GitHub上的开源项目。被抄袭的开源项目原作者跳出来呛声00后CEO，素材图都不会换，连抄袭都不够格，简直是“赤裸裸的复制”。
 
-原作者的项目介绍中，Mr.Cat
-
-这款产品的效果图是这个样子的：
-
-
-而00后CEO李昕泽采访视频中，他开发的智能电视桌面产品“猫桌面”，效果图是这样的：
-
-
-除了底部的几个icon外，Mr.Cat
-
-与猫桌面几乎完全雷同，连素材图都没有替换，右上角甚至还挂着“猫桌面”的名字。怪不得Mr.Cat
-
-的作者这样评价这位00后CEO，“大家觉得这是抄袭吗？这不是，这就是赤裸裸的复制！”"
+原作者的项目介绍中，Mr.Cat"
             android:textSize="16dp" />
 
         <Button
@@ -100,35 +90,13 @@
             android:layout_marginTop="8dp"
             app:sapcing="4dp" />
 
-        <ImageView
-            android:id="@+id/iv_dynamic_comment"
-            android:layout_marginLeft="10dp"
+        <TextView
+            android:id="@+id/tv_dynamic_pulish_time"
+            android:layout_marginLeft="15dp"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_below="@id/layout_nine_grid"
-            android:src="@mipmap/ic_launcher"
-            android:layout_marginRight="10dp"
-            android:layout_alignParentRight="true"
-
-            />
-        <ImageView
-            android:id="@+id/iv_dynamic_share"
-            android:layout_marginLeft="10dp"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_below="@id/layout_nine_grid"
-            android:src="@mipmap/ic_launcher"
-            android:layout_toLeftOf="@id/iv_dynamic_comment"
-            />
-
-        <ImageView
-            android:id="@+id/iv_dynamic_heart"
-            android:layout_marginLeft="10dp"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_below="@id/layout_nine_grid"
-            android:src="@mipmap/ic_launcher"
-            android:layout_toLeftOf="@id/iv_dynamic_share"
+            android:layout_alignParentLeft="true"
 
             />
 
@@ -138,28 +106,153 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tv_dynamic_comment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="汪洋: 飒飒飒"
-        android:textSize="15dp"
-        android:layout_marginLeft="10dp"
-        />
 
-    <Button
-        android:id="@+id/btn_dynamic_allComment"
-        android:layout_width="wrap_content"
-        android:layout_height="18dp"
-        android:layout_below="@id/tv_dynamic_comment"
-        android:layout_marginLeft="9dp"
-        android:background="@null"
-        android:text="查看剩余5评论..."
-        android:textColor="@color/welcome_regist_color" />
+
+
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
         android:background="@color/home_konw_more"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        >
+
+
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:text="1"
+
+            >
+
+
+
+
+            <ImageView
+                android:id="@+id/iv_zan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/ic_launcher"
+                />
+
+            <TextView
+                android:id="@+id/iv_zan_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/iv_zan"
+                android:text="9862"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+
+                />
+
+
+
+
+
+
+        </RelativeLayout>
+
+
+
+
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:text="1"
+
+            >
+
+
+            <ImageView
+                android:id="@+id/iv_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/ic_launcher"
+                />
+
+
+            <TextView
+                android:id="@+id/iv_comment_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/iv_comment"
+                android:text="51"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+
+                />
+
+
+
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:text="1"
+
+            >
+
+
+            <ImageView
+                android:id="@+id/iv_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/ic_launcher"
+                />
+
+            <TextView
+                android:id="@+id/tv_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/iv_share"
+                android:text="分享"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+
+                />
+
+
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/home_konw_more"/>
+
 
 </LinearLayout>

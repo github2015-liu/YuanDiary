@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#ffffff"
+    >
 
     <LinearLayout
         android:id="@+id/ll_qa"
@@ -26,8 +28,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_q_person_head"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="10dp"
                 android:src="@mipmap/ic_launcher"
@@ -141,11 +143,11 @@
 
 
 
-    <TextView
-        android:id="@+id/tv_qa_line1"
-        android:background="@color/qa_line"
+    <ImageView
+        android:id="@+id/iv_qa_line1"
         android:layout_width="match_parent"
         android:layout_below="@id/ll_qa"
+        android:background="@color/home_konw_more"
         android:layout_height="2dp" />
 
 

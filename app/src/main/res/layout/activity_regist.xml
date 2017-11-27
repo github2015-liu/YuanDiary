@@ -38,8 +38,8 @@
 
 
             <EditText
-                android:id="@+id/et_login"
-                android:layout_width="wrap_content"
+                android:id="@+id/et_regist_phoneNum"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
@@ -73,13 +73,14 @@
 
 
             <EditText
-                android:id="@+id/et_pass"
-                android:layout_width="wrap_content"
+                android:id="@+id/et_regist_pass"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/iv_pass_pic"
                 android:layout_marginLeft="5dp"
                 android:textColorHint="#ffffff"
+                android:inputType="textPassword"
                 android:background="@null"
                 android:hint="密码"
 
@@ -109,13 +110,14 @@
 
 
             <EditText
-                android:id="@+id/et_sure_pass"
-                android:layout_width="wrap_content"
+                android:id="@+id/et_regist_sure_pass"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/iv_sure_pass_pic"
                 android:layout_marginLeft="5dp"
                 android:textColorHint="#ffffff"
+                android:inputType="textPassword"
                 android:background="@null"
                 android:hint="确认密码"
 
@@ -135,6 +137,7 @@
 
 
             <TextView
+                android:id="@+id/tv_already_regist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -154,7 +157,7 @@
 
 
     <LinearLayout
-        android:id="@+id/ll_login_bottom"
+        android:id="@+id/ll_regist_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="3"
@@ -168,7 +171,7 @@
             >
 
             <Button
-                android:id="@+id/btn_login"
+                android:id="@+id/btn_regist_regist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
